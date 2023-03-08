@@ -5,7 +5,7 @@ const genAccessToken = (user) => {
     return new Promise((resolve, reject) => {
         if (user._id) {
             resolve(
-                jwt.sign({ _id: user._id }, process.env.JWT_AUTH_SECRET, { expiresIn: "1m" })
+                jwt.sign({ _id: user._id }, process.env.JWT_AUTH_SECRET, { expiresIn: "30m" })
             )
         }
     })

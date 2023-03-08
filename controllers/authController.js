@@ -1,4 +1,5 @@
 const User = require('../model/userModel')
+const Admin = require('../model/adminModel')
 const bcrypt = require('bcrypt')
 const createError = require("http-errors");
 const jwt = require('jsonwebtoken')
@@ -63,6 +64,39 @@ const login = async (req, res, next) => {
                 maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                 sameSite: "strict",
             }).json({ success: true, user, refreshToken })
+    } catch (error) {
+        console.log(error);
+        next(error)
+    }
+}
+
+
+const adminlogin = async (req, res, next) => {
+    const { email, password } = req.body
+    try {
+        // check the email is in the database
+        const admin = await Admin.findOne({ email: email })
+        if (!admin) throw createError.NotFound("No user found")
+
+        // compareing the password 
+        const pswrd = await bcrypt.compare(password, admin.password)
+        if (!pswrd) throw createError.Unauthorized("password is incorrect");
+
+        // generating acess-token and refresh-token
+        const accessToken = await genAccessToken(admin)
+        const refreshToken = await genRefreshToken(admin)
+
+        // set the refresh-token in to an array
+        refreshTokenArray.push(refreshToken)
+
+        // set the access-token to the cookies
+        res.status(200)
+            .cookie("accessToken", accessToken, {
+                httpOnly: true,
+                path: "/",
+                maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+                sameSite: "strict",
+            }).json({ success: true, admin, refreshToken })
     } catch (error) {
         console.log(error);
         next(error)
@@ -163,6 +197,7 @@ const logout = (req, res, next) => {
 module.exports = {
     signup,
     login,
+    adminlogin,
     refreshToken,
     logout
 }

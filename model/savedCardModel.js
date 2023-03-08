@@ -5,7 +5,7 @@ const validateEmail = function (email) {
     return re.test(email)
 };
 
-const CardSchema = mongoose.Schema({
+const SavedCardSchema = mongoose.Schema({
     cardModel: {
         type: String,
         required: [true, "CardModel is required"]
@@ -63,14 +63,6 @@ const CardSchema = mongoose.Schema({
             required: [true, "Landmark is required"]
         },
     },
-    paymentMethod: {
-        type: String,
-        required: [true, "PaymentMethod is required"]
-    },
-    status: {
-        type: String,
-        default:"Processing"
-    },
     userID: {
         type: String,
         required: [true, "UserID is required"]
@@ -81,5 +73,5 @@ const CardSchema = mongoose.Schema({
 })
 mongoose.set('strictQuery', false);
 
-const Card = mongoose.model('Card',CardSchema)
-module.exports= Card
+const SavedCard = mongoose.model('SavedCard',SavedCardSchema)
+module.exports= SavedCard

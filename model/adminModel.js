@@ -5,7 +5,7 @@ const validateEmail = function (email) {
     return re.test(email)
 };
 
-const UserSchema = mongoose.Schema({
+const AdminSchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, "Name is required"]
@@ -16,24 +16,15 @@ const UserSchema = mongoose.Schema({
         required: [true, "Email is required"],
         unique: true
     },
-    phone: {
-        type: Number,
-        minlength: [10, "phone number must be 10 digits"],
-        required: [true, "Phone number is required"]
-    },
-    companyName: String,
     password: {
         type: String,
         minlength: [6, "Password must contain 6 letters"],
         required: [true, "Password is required"]
-    },
-    block: {
-        type: Boolean,
-       default:false
-    },
+    }
+   
    
 })
 mongoose.set('strictQuery', false);
 
-const User = mongoose.model('User',UserSchema)
-module.exports= User
+const Admin = mongoose.model('Admin',AdminSchema)
+module.exports= Admin
