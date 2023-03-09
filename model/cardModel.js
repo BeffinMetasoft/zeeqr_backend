@@ -75,6 +75,10 @@ const CardSchema = mongoose.Schema({
         type: String,
         required: [true, "UserID is required"]
     },
+    QRCode: {
+        type: String,
+        required: [true, "QRCode is required"]
+    },
     
    
    

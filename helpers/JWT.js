@@ -11,13 +11,13 @@ const genAccessToken = (user) => {
     })
 }
 
-const genRefreshToken =({_id})=>{
-    return new Promise((resolve,reject)=>{
-        jwt.sign({_id:_id},process.env.JWT_REFRESH_TOKEN_SECRET,{expiresIn:"7d"},async(err,token)=>{
-            if(err) reject(createHttpError[500])
+const genRefreshToken = ({ _id }) => {
+    return new Promise((resolve, reject) => {
+        jwt.sign({ _id: _id }, process.env.JWT_REFRESH_TOKEN_SECRET, { expiresIn: "7d" }, async (err, token) => {
+            if (err) reject(createHttpError[500])
             resolve(token)
         })
     })
 }
 
-module.exports ={genAccessToken,genRefreshToken}
+module.exports = { genAccessToken, genRefreshToken }
