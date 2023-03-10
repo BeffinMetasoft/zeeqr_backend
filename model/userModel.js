@@ -31,6 +31,7 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
        default:false
     },
+  
    
 })
 mongoose.set('strictQuery', false);

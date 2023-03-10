@@ -6,6 +6,10 @@ const mongoose = require("mongoose");
 const { uploadFile } = require("../helpers/s3");
 const { generateQR } = require("../helpers/qrCodeGenerator");
 const crypto = require("crypto");
+require("dotenv").config();
+
+const S3Url = process.env.AWS_BUCKET_URL
+const QRBase = process.env.QR_CODE_BASE_URL
 
 const generateFileName = (bytes = 32) =>
   crypto.randomBytes(bytes).toString("hex");
@@ -25,6 +29,10 @@ const saveCard = async (req, res, next) => {
     email: req.body.email,
     phone: req.body.phone,
     websiteUrl: req.body.websiteUrl,
+    facebook:req.body.facebook,
+  instagram:req.body.instagram,
+  twitter:req.body.twitter,
+  linkedin:req.body.linkedin,
     shippingDetails: {
       name: req.body.shippingName,
       address: req.body.shippingAddress,
@@ -108,15 +116,19 @@ const createCard = async (req, res, next) => {
   const file = req.file;
   const imageName = generateFileName();
   await uploadFile(file.buffer, imageName, file.mimetype);
-
+ 
   const CardData = {
     cardModel: req.body.cardModel,
-    logoURL: imageName,
+    logoURL: S3Url+imageName,
     companyName: req.body.companyName,
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone,
     websiteUrl: req.body.websiteUrl,
+    facebook:req.body.facebook,
+  instagram:req.body.instagram,
+  twitter:req.body.twitter,
+  linkedin:req.body.linkedin,
     shippingDetails: {
       name: req.body.shippingName,
       address: req.body.shippingAddress,
@@ -131,7 +143,7 @@ const createCard = async (req, res, next) => {
 
   const newCard = new CardModel(CardData);
   newCard._id = mongoose.Types.ObjectId();
-  const URL = "http://zeeqr.com/" + newCard._id;
+  const URL = QRBase + newCard._id;
   console.log("URL", URL);
   const QRCode = await generateQR(URL);
   newCard.QRCode = QRCode;

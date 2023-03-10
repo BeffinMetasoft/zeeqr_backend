@@ -67,6 +67,19 @@ const SavedCardSchema = mongoose.Schema({
         type: String,
         required: [true, "UserID is required"]
     },
+    facebook: {
+        type: String
+    },
+    instagram: {
+        type: String
+    },
+    twitter: {
+        type: String
+       
+    },
+    linkedin: {
+        type: String
+    },
     
    
    
