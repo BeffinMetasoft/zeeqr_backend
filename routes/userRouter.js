@@ -6,7 +6,7 @@ const { verifyJwt } = require('../middleware/verify_jwt')
 
 //user routes
 router.get('/profile',verifyJwt,profile)
-router.put('/update/:id',verifyJwt,updateUser)
+router.put('/update',verifyJwt,updateUser)
 //admin routes
 router.get('/allUser',verifyJwt,allUser)
 router.put('/block/:id',verifyJwt,block)

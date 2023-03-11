@@ -7,7 +7,7 @@ const { signup,adminlogin, login, refreshToken, logout } = require('../controlle
 router.post('/signup',signup)
 router.post('/login',login)
 router.post('/refresh-token',refreshToken)
-router.delete('/logout',logout)
+router.post('/logout',logout)
 router.post('/adminlogin',adminlogin)
 
 

@@ -200,11 +200,10 @@ const getAllCard = async (req, res, next) => {
 
 const updateCardStatus = async (req, res, next) => {
   const cardId = req.params.id;
-
   try {
     const bookedcard = await CardModel.findById(cardId);
 
-    if ("6401d5b4cc9f4d0802074f30" == req.user._id) {
+    if ("640706d85e745adee6a75d89" == req.user._id) {
       await bookedcard.updateOne({ $set: { status: req.body.status } });
       res.status(200).json({ success: true, message: "card status updated" });
     } else {

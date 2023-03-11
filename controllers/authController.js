@@ -174,8 +174,8 @@ const logout = (req, res, next) => {
       throw createHttpError.InternalServerError("no refresh token found");
 
     //get the ref token from the array with
-    if (!refreshTokenArray.includes(refToken))
-      throw createError.Unauthorized("Invalid refresh token");
+    // if (!refreshTokenArray.includes(refToken))
+    //   throw createError.Unauthorized("Invalid refresh token");
 
     //if it matches
     jwt.verify(
